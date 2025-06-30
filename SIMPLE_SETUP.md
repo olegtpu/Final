@@ -1,31 +1,55 @@
 # 🚀 Complete Setup Guide - Vending Machine DApp
 
+> **🎯 Quick Start**: Already have the project? Jump to [Step 3](#step-3-setup-your-private-network) to check your network, then run `npm run compile`, `npm run deploy`, and `npm run dev`.
+
 ## 📋 What You Need
 - Chrome or Firefox browser
 - Node.js installed
 - VS Code (optional but recommended)
 - Internet connection
 
+## 🎓 What You'll Learn
+By completing this setup, you'll:
+- ✅ Deploy smart contracts to a blockchain
+- ✅ Use MetaMask wallet with custom networks
+- ✅ Interact with ERC20 tokens (CTK)
+- ✅ Build a decentralized application (DApp)
+- ✅ Understand blockchain transactions
+
 ---
 
 ## Step 1: Download and Setup Project
 
-### Option A: Download from GitHub
+### 🚀 Automated Setup (Recommended)
+**PowerShell Script** (Windows):
+```powershell
+# Download and run the setup script
+.\student-setup.ps1
+```
+
+**Batch File** (Windows):
+```batch
+# Double-click or run
+student-clone.bat
+```
+
+> **Note**: If automated scripts don't work, use the manual setup options below.
+
+### Manual Setup Options
+
+#### Option A: Download from GitHub
 ```bash
 git clone https://github.com/Zakwan-Khalit/vending-machine-dapp.git
 cd vending-machine-dapp
+npm install
 ```
 
-### Option B: Create Project from Scratch
-1. **Create project folder**:
-   ```bash
-   mkdir vending-machine-dapp
-   cd vending-machine-dapp
-   ```
-
-2. **Download all project files** (provided by instructor)
-
-3. **Install dependencies**:
+#### Option B: Download ZIP from GitHub
+1. **Go to**: https://github.com/Zakwan-Khalit/vending-machine-dapp
+2. **Click "Code" → "Download ZIP"**
+3. **Extract the ZIP file**
+4. **Open terminal in the extracted folder**
+5. **Install dependencies**:
    ```bash
    npm install
    ```
@@ -69,7 +93,7 @@ npm run compile
 
 **Then deploy contracts**:
 ```bash
-node debug-deploy.js
+npm run deploy
 ```
 
 **Your private key when prompted**: `9432a91bc810115f7f75aa9b096e12fbd1451639ec30558b0a75048fda54d8f4`
@@ -206,7 +230,7 @@ npx http-server . -p 8080 -o
 npm run compile
 
 # Redeploy contracts (if needed)
-node debug-deploy.js
+npm run deploy
 ```
 
 ---
@@ -222,7 +246,7 @@ npm run check-network
 npm run troubleshoot
 
 # Redeploy manually
-node debug-deploy.js
+npm run deploy
 ```
 
 ### If DApp won't connect:
@@ -249,7 +273,7 @@ npm install
 npx http-server . -p 8081 -o
 
 # If contracts not found:
-node debug-deploy.js
+npm run deploy
 ```
 
 ---
@@ -270,8 +294,24 @@ vending-machine-dapp/
 ├── debug-deploy.js
 ├── check-network.js
 ├── troubleshoot.js
+├── student-setup.ps1
+├── student-clone.bat
+├── SIMPLE_SETUP.md
+├── STUDENT_WORKSHEET.md
+├── QUICK_REFERENCE.md
+├── README.md
+├── .gitignore
 └── deployment.json (created after deployment)
 ```
+
+### Key Files Explained:
+- **contracts/** - Smart contract source code
+- **app.js** - Frontend JavaScript that connects to blockchain
+- **debug-deploy.js** - Script to deploy contracts to blockchain
+- **troubleshoot.js** - Diagnostic tool for common issues
+- **student-setup.ps1** - Automated setup script for students
+- **SIMPLE_SETUP.md** - This guide you're reading
+- **STUDENT_WORKSHEET.md** - Hands-on activities and exercises
 
 ---
 

@@ -6,11 +6,8 @@
   "scripts": {
     "troubleshoot": "node troubleshoot.js",
     "check-network": "node check-network.js",
-    "setup-project": "node setup-project.js",
     "compile": "node compile.js",
-    "deploy": "node deploy.js",
-    "quick-deploy": "node quick-deploy.js",
-    "setup": "npm run compile && npm run quick-deploy",
+    "deploy": "node debug-deploy.js",
     "start": "npx http-server . -p 8080 -c-1",
     "dev": "npx http-server . -p 8080 -c-1 -o"
   },

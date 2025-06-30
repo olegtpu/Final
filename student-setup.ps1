@@ -65,7 +65,7 @@ Write-Host "Next steps:" -ForegroundColor Cyan
 Write-Host "1. Read SIMPLE_SETUP.md for detailed instructions" -ForegroundColor White
 Write-Host "2. Start your private Ethereum network" -ForegroundColor White
 Write-Host "3. Run: npm run compile" -ForegroundColor Magenta
-Write-Host "4. Run: node debug-deploy.js" -ForegroundColor Magenta
+Write-Host "4. Run: npm run deploy" -ForegroundColor Magenta
 Write-Host "5. Run: npm run dev" -ForegroundColor Magenta
 Write-Host ""
 Write-Host "Project location: $(Get-Location)" -ForegroundColor Yellow

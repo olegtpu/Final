@@ -10,10 +10,11 @@ A decentralized vending machine built on Ethereum using custom ERC20 tokens (CTK
 - `app.js` - Frontend JavaScript with Web3 integration
 - `index.html` - User interface
 - `styles.css` - Modern, responsive styling
-- `SIMPLE_SETUP.md` - **START HERE** - Step-by-step setup guide
+- `SIMPLE_SETUP.md` - **START HERE** - Complete step-by-step setup guide
 - `STUDENT_WORKSHEET.md` - Hands-on activities with checklists
-- `GITHUB_SETUP.md` - How to push this project to GitHub
-- Setup scripts: `setup.bat`, `git-init.ps1`, `compile.js`, etc.
+- `QUICK_REFERENCE.md` - Quick reference for addresses and commands
+- Essential scripts: `compile.js`, `debug-deploy.js`, `troubleshoot.js`, `check-network.js`
+- Student setup scripts: `student-setup.ps1`, `student-clone.bat`
 
 ## ✨ Features
 

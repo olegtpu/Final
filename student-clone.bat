@@ -50,7 +50,7 @@ echo Next steps:
 echo 1. Read SIMPLE_SETUP.md for detailed instructions
 echo 2. Make sure your private Ethereum network is running
 echo 3. Run: npm run compile
-echo 4. Run: node debug-deploy.js
+echo 4. Run: npm run deploy
 echo 5. Run: npm run dev
 echo.
 echo Project location: %CD%
