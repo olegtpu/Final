@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vending Machine DApp</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>🧃 Vending Machine DApp</h1>
+    <div class="user-info">
+      <div id="user-address">Connect Wallet</div>
+      <div id="balance">Balance: -</div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <div id="items" class="section"></div>
+      
+      <div class="admin-section section">
+        <h2>Owner Functions</h2>
+        <div class="form-group">
+          <h3>Add Item</h3>
+          <input type="text" id="item-name" placeholder="Item name" />
+          <input type="number" id="item-price" placeholder="Price in CTK" step="0.01" />
+          <button onclick="addItem()">Add Item</button>
+        </div>
+        
+        <div class="form-group">
+          <h3>Remove Item</h3>
+          <input type="number" id="remove-index" placeholder="Item index" />
+          <button onclick="removeItem()">Remove Item</button>
+        </div>
+      </div>
+      
+      <div id="history" class="section"></div>
+    </div>
+  </main>
+
+  <footer>
+    <p>Private Ethereum Network - Chain ID: 2025</p>
+    <p>RPC: http://172.27.149.226:8545</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
