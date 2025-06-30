@@ -41,11 +41,9 @@ Write-Host "1. Create a new repository on GitHub.com" -ForegroundColor White
 Write-Host "2. Copy your repository URL" -ForegroundColor White
 Write-Host "3. Run these commands:" -ForegroundColor White
 Write-Host ""
-Write-Host "git remote add origin https://github.com/YOURUSERNAME/vending-machine-dapp.git" -ForegroundColor Magenta
+Write-Host "git remote add origin https://github.com/Zakwan-Khalit/vending-machine-dapp.git" -ForegroundColor Magenta
 Write-Host "git branch -M main" -ForegroundColor Magenta
 Write-Host "git push -u origin main" -ForegroundColor Magenta
-Write-Host ""
-Write-Host "(Replace YOURUSERNAME with your actual GitHub username)" -ForegroundColor Yellow
 Write-Host ""
 Write-Host "For detailed instructions, see GITHUB_SETUP.md" -ForegroundColor Cyan
 Write-Host ""

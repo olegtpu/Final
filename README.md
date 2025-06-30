@@ -43,7 +43,7 @@ Students will learn:
 ### Setup
 ```bash
 # Clone the repository
-git clone https://github.com/[YOUR_USERNAME]/vending-machine-dapp.git
+git clone https://github.com/Zakwan-Khalit/vending-machine-dapp.git
 cd vending-machine-dapp
 
 # Install dependencies

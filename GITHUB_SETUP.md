@@ -36,7 +36,7 @@ This guide will help you push your vending machine DApp to GitHub in just a few 
 7. Click **Create repository**
 
 ### Step 4: Connect and Push
-1. Copy the repository URL from GitHub (should look like: `https://github.com/yourusername/vending-machine-dapp.git`)
+1. Copy the repository URL from GitHub (should look like: `https://github.com/Zakwan-Khalit/vending-machine-dapp.git`)
 2. In VS Code, press `Ctrl+Shift+P`
 3. Type "Git: Add Remote" and select it
 4. Enter `origin` as the remote name
@@ -65,8 +65,8 @@ git commit -m "Initial commit: Vending Machine DApp with educational materials"
 
 ### Step 4: Connect and Push
 ```powershell
-# Replace 'yourusername' with your actual GitHub username
-git remote add origin https://github.com/yourusername/vending-machine-dapp.git
+# Add your repository as the remote origin
+git remote add origin https://github.com/Zakwan-Khalit/vending-machine-dapp.git
 git branch -M main
 git push -u origin main
 ```
@@ -93,7 +93,7 @@ gh auth login
 ### Problem: "Remote origin already exists"
 ```powershell
 git remote remove origin
-git remote add origin https://github.com/yourusername/vending-machine-dapp.git
+git remote add origin https://github.com/Zakwan-Khalit/vending-machine-dapp.git
 ```
 
 ### Problem: Authentication failed
@@ -128,10 +128,10 @@ git push origin main
 
 Once your repository is on GitHub:
 
-1. **Share the Repository URL**: `https://github.com/yourusername/vending-machine-dapp`
+1. **Share the Repository URL**: `https://github.com/Zakwan-Khalit/vending-machine-dapp`
 2. **Students can clone it**:
    ```bash
-   git clone https://github.com/yourusername/vending-machine-dapp.git
+   git clone https://github.com/Zakwan-Khalit/vending-machine-dapp.git
    cd vending-machine-dapp
    npm install
    ```

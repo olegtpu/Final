@@ -35,11 +35,9 @@ echo 1. Create a new repository on GitHub.com
 echo 2. Copy your repository URL
 echo 3. Run these commands:
 echo.
-echo git remote add origin https://github.com/YOURUSERNAME/vending-machine-dapp.git
+echo git remote add origin https://github.com/Zakwan-Khalit/vending-machine-dapp.git
 echo git branch -M main
 echo git push -u origin main
-echo.
-echo (Replace YOURUSERNAME with your actual GitHub username)
 echo.
 echo For detailed instructions, see GITHUB_SETUP.md
 echo.

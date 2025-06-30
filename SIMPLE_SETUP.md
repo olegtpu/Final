@@ -10,9 +10,9 @@
 
 ## Step 1: Download and Setup Project
 
-### Option A: Download from GitHub (if available)
+### Option A: Download from GitHub
 ```bash
-git clone [YOUR_REPOSITORY_URL]
+git clone https://github.com/Zakwan-Khalit/vending-machine-dapp.git
 cd vending-machine-dapp
 ```
 

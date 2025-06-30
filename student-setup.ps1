@@ -1,9 +1,9 @@
 # Student Project Setup Script
-# Run this script to quickly set up the Vending Machine DApp
+# Run this script to quickly set up the Vending Machine DApp from Zakwan-Khalit's repository
 
 param(
-    [Parameter(Mandatory=$true)]
-    [string]$GitHubUsername,
+    [Parameter(Mandatory=$false)]
+    [string]$GitHubUsername = "Zakwan-Khalit",
     
     [Parameter(Mandatory=$false)]
     [string]$ProjectPath = "C:\blockchain-projects"
