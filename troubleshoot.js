@@ -12,7 +12,7 @@ async function troubleshoot() {
   try {
     // Check 1: Network connectivity
     console.log('🌐 Checking network connectivity...');
-    const web3 = new Web3('http://172.27.149.226:8545');
+    const web3 = new Web3('http://172.26.232.28:8545');
     const isListening = await web3.eth.net.isListening();
     
     if (isListening) {
@@ -22,7 +22,7 @@ async function troubleshoot() {
       issues.push('Network offline');
       solutions.push('1. Check if your private Ethereum network is running');
       solutions.push('2. Verify WSL is running: wsl --list --running');
-      solutions.push('3. Check RPC URL: http://172.27.149.226:8545');
+      solutions.push('3. Check RPC URL: http://172.26.232.28:8545');
     }
 
     // Check 2: Chain ID
@@ -39,7 +39,7 @@ async function troubleshoot() {
 
     // Check 3: Account balance
     if (isListening) {
-      const targetAccount = '0xBa376Ed1e4A62a4b71340F09A855B8FFBe441474';
+      const targetAccount = '0xec6f0983be51b84a512765c547b26af7b79a4ab7';
       const balance = await web3.eth.getBalance(targetAccount);
       const ethBalance = parseFloat(web3.utils.fromWei(balance, 'ether'));
       

@@ -7,7 +7,7 @@ let web3;
 const NETWORK_CONFIG = {
   chainId: 2025,
   chainName: "Private Ethereum Network",
-  rpcUrls: ["http://172.27.149.226:8545"],
+  rpcUrls: ["http://172.26.232.28:8545"],
   nativeCurrency: {
     name: "ETH",
     symbol: "ETH",
@@ -16,8 +16,8 @@ const NETWORK_CONFIG = {
 };
 
 // Contract addresses - update these after deployment
-const contractAddress = "0xea213740a24c44D83907D3D7E4E67eA492f1E981";
-const tokenAddress = "0x4aac4cb74301C9F3239d95D4c95FA5FcEeaff2f2";
+const contractAddress = "0x0b3d0fC3d2EEeDb401444B606bb8b7faED30ADC8";
+const tokenAddress = "0x6EaeCc0AD8D731ea189c5C664Ca857e7940458C6";
 
 // Contract ABIs
 const vendingMachineABI = [

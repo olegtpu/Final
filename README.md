@@ -64,7 +64,7 @@ npm run dev
 ### MetaMask Configuration
 ```
 Network Name: Private Ethereum Network
-RPC URL: http://172.27.149.226:8545
+RPC URL: http://172.26.232.28:8545
 Chain ID: 2025
 Currency Symbol: ETH
 ```

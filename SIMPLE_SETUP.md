@@ -114,7 +114,7 @@ npm run deploy
 4. **Fill in exactly**:
    ```
    Network Name: Private Ethereum Network
-   New RPC URL: http://172.27.149.226:8545
+   New RPC URL: http://172.26.232.28:8545
    Chain ID: 2025
    Currency Symbol: ETH
    Block Explorer URL: (leave empty)
@@ -199,7 +199,7 @@ npm run dev
 ### Your Network Details:
 ```
 Network Name: Private Ethereum Network
-RPC URL: http://172.27.149.226:8545
+RPC URL: http://172.26.232.28:8545
 Chain ID: 2025
 ```
 

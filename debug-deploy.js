@@ -7,11 +7,11 @@ async function debugDeploy() {
   console.log('==================');
   
   // Your private key (without 0x prefix)
-  const privateKey = '9432a91bc810115f7f75aa9b096e12fbd1451639ec30558b0a75048fda54d8f4';
+  const privateKey = 'd03a1ba0ae0d859288ffa9b94861e28b6dfb576e30af1584dbaf11d28b9ea217';
   
   try {
     console.log('📡 Connecting to network...');
-    const web3 = new Web3('http://172.27.149.226:8545');
+    const web3 = new Web3('http://172.26.232.28:8545');
     
     // Add account from private key
     const account = web3.eth.accounts.privateKeyToAccount('0x' + privateKey);
@@ -79,7 +79,7 @@ async function debugDeploy() {
     const deploymentInfo = {
       network: 'Private Ethereum Network',
       chainId: 2025,
-      rpc: 'http://172.27.149.226:8545',
+      rpc: 'http://172.26.232.28:8545',
       customToken: {
         address: tokenInstance.options.address,
         symbol: 'CTK',
