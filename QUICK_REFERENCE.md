@@ -1,6 +1,6 @@
-# 🚀 Quick Reference Card
+# Quick Reference Card
 
-## 📋 Hardhat Network Details
+##  Hardhat Network Details
 - **Network Name**: Private Ethereum Network
 - **RPC URL**: http://127.0.0.1:8545
 - **Chain ID**: 31337
@@ -15,7 +15,7 @@
 - **CustomToken (HETH)**: `0x5FbDB2315678afecb367f032d93F642f64180aa3`
 - **VendingMachine**: `0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512`
 
-## 🛠 Quick Commands
+## Quick Commands
 ```bash
 # Check network status
 npm run check-network
