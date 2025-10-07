@@ -12,8 +12,8 @@
 - **HETH Balance**: 10000 HETH
 
 ## 📦 Contract Addresses
-- **CustomToken (HETH)**: ``
-- **VendingMachine**: ``
+- **CustomToken (HETH)**: `0x5FbDB2315678afecb367f032d93F642f64180aa3`
+- **VendingMachine**: `0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512`
 
 ## 🛠 Quick Commands
 ```bash
@@ -28,31 +28,6 @@ npm run compile
 
 # Redeploy contracts
 node debug-deploy.js
-```
-
-## 🦊 MetaMask Setup Checklist
-- [ ] Install MetaMask extension
-- [ ] Add Private Ethereum Network
-- [ ] Import account with private key
-- [ ] Add CTK token (address above)
-- [ ] Switch to Private Ethereum Network
-
-## 🎯 Testing Steps
-1. Start the DApp server
-2. Open http://localhost:8080
-3. Connect MetaMask
-4. Add items (as owner)
-5. Buy items
-6. Check purchase history
-
-## 🆘 Emergency Commands
-```bash
-# If stuck, restart everything:
-1. Close browser
-2. Ctrl+C in terminal
-3. npm run check-network
-4. npx http-server . -p 8080 -o
-5. Refresh MetaMask
 ```
 
 ## 📱 DApp URL
