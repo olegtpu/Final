@@ -53,3 +53,5 @@ deployment.json
 # Backup files
 *.bak
 *.tmp
+# switching modules
+node_modules/

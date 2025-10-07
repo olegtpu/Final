@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.17;
+pragma solidity ^0.8.28;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 contract CustomToken is ERC20 {
-    constructor(uint256 initialSupply) ERC20("CustomToken", "CTK") {
+    constructor(uint256 initialSupply) ERC20("CustomToken", "HETH") {
         _mint(msg.sender, initialSupply);
     }
 }

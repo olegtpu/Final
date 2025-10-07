@@ -1,23 +1,27 @@
-let contract;
-let tokenContract;
-let user;
-let web3;
+import { ethers, BrowserProvider, Contract } from 'ethers';
 
-// Configuration for your private network
+let contract; // ethers.Contract (VendingMachine)
+let tokenContract; // ethers.Contract (CustomToken)
+let user; // ethers.Signer (аккаунт пользователя)
+let provider; // ethers.BrowserProvider
+
+// КОНФИГУРАЦИЯ ДЛЯ ЛОКАЛЬНОГО HARDHAT NODE (СТАНДАРТ)
 const NETWORK_CONFIG = {
-  chainId: 2025,
-  chainName: "Private Ethereum Network",
-  rpcUrls: ["http://172.26.232.28:8545"],
+  // Chain ID Hardhat Node по умолчанию
+  chainId: 31337, 
+  chainName: "Hardhat Localhost",
+  // Стандартный адрес Hardhat Node
+  rpcUrls: ["http://127.0.0.1:8545"], 
   nativeCurrency: {
-    name: "ETH",
-    symbol: "ETH",
+    name: "HETH",
+    symbol: "HETH",
     decimals: 18
   }
 };
 
 // Contract addresses - update these after deployment
-const contractAddress = "0x0b3d0fC3d2EEeDb401444B606bb8b7faED30ADC8";
-const tokenAddress = "0x6EaeCc0AD8D731ea189c5C664Ca857e7940458C6";
+const contractAddress = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512";
+const tokenAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
 
 // Contract ABIs
 const vendingMachineABI = [
@@ -249,36 +253,43 @@ const customTokenABI = [
 
 window.addEventListener("load", async () => {
   if (window.ethereum) {
-    web3 = new Web3(window.ethereum);
-    
     try {
-      // Request account access
-      await window.ethereum.request({ method: 'eth_requestAccounts' });
+      // Инициализация провайдера Ethers.js для MetaMask
+      provider = new BrowserProvider(window.ethereum);
+
+      // Получение Signer (MetaMask предложит выбрать аккаунт)
+      user = await provider.getSigner();
+      const userAddress = await user.getAddress();
       
-      // Check if we're on the correct network
-      const chainId = await web3.eth.getChainId();
-      if (chainId !== NETWORK_CONFIG.chainId) {
-        await switchToPrivateNetwork();
+      // Проверка и переключение сети
+      const network = await provider.getNetwork();
+      if (Number(network.chainId) !== NETWORK_CONFIG.chainId) {
+        // Запрос переключения на Hardhat Localhost (31337)
+        await switchToPrivateNetwork(); 
+        
+        // Переинициализация после переключения сети
+        provider = new BrowserProvider(window.ethereum);
+        user = await provider.getSigner();
+      }
+
+      // Инициализация контрактов (подключаем Signer для отправки транзакций)
+      if (contractAddress) {
+        // Контракт на торговом автомате
+        contract = new Contract(contractAddress, vendingMachineABI, user);
+      }
+      if (tokenAddress) {
+        // Контракт токена
+        tokenContract = new Contract(tokenAddress, customTokenABI, user);
       }
       
-      const accounts = await web3.eth.getAccounts();
-      user = accounts[0];
-      
-      // Initialize contracts only if addresses are set
-      if (contractAddress !== "YOUR_VENDING_MACHINE_CONTRACT_ADDRESS") {
-        contract = new web3.eth.Contract(vendingMachineABI, contractAddress);
-      }
-      if (tokenAddress !== "YOUR_CUSTOM_TOKEN_CONTRACT_ADDRESS") {
-        tokenContract = new web3.eth.Contract(customTokenABI, tokenAddress);
-      }
-      
-      updateUI();
+      updateUI(userAddress);
       loadItems();
-      loadHistory();
-      loadBalance();
+      loadHistory(userAddress);
+      loadBalance(userAddress);
+      
     } catch (error) {
       console.error("Error connecting to wallet:", error);
-      alert("Error connecting to wallet: " + error.message);
+      alert("Error connecting to wallet: " + (error.message || error.code));
     }
   } else {
     alert("Please install MetaMask to use this DApp!");
@@ -368,14 +379,14 @@ async function purchaseItem(index) {
     // First approve the vending machine to spend tokens
     const approveTx = await tokenContract.methods.approve(contractAddress, price).send({
       from: user,
-      gas: 100000
+      gas: 210000
     });
     console.log("Approve transaction:", approveTx.transactionHash);
     
     // Then purchase the item
     const purchaseTx = await contract.methods.purchase(index).send({
       from: user,
-      gas: 200000
+      gas: 210000
     });
     
     alert(`Purchase successful! Transaction: ${purchaseTx.transactionHash}`);
@@ -458,16 +469,16 @@ async function addItem() {
     const priceInWei = web3.utils.toWei(itemPrice, 'ether');
     const tx = await contract.methods.addItem(itemName, priceInWei).send({
       from: user,
-      gas: 200000
+      gas: 210000
     });
     
-    alert(`Item added! Transaction: ${tx.transactionHash}`);
+    alert(`Товар добавлен! Transaction: ${tx.transactionHash}`);
     document.getElementById("item-name").value = "";
     document.getElementById("item-price").value = "";
     loadItems();
   } catch (error) {
-    console.error("Error adding item:", error);
-    alert("Failed to add item: " + error.message);
+    console.error("Ошибка в добавлении товара:", error);
+    alert("Не могу добавить товар: " + error.message);
   }
 }
 
@@ -487,14 +498,14 @@ async function removeItem() {
   try {
     const tx = await contract.methods.removeItem(parseInt(itemIndex)).send({
       from: user,
-      gas: 200000
+      gas: 210000
     });
     
-    alert(`Item removed! Transaction: ${tx.transactionHash}`);
+    alert(`Товар удален! Transaction: ${tx.transactionHash}`);
     document.getElementById("remove-index").value = "";
     loadItems();
   } catch (error) {
-    console.error("Error removing item:", error);
+    console.error("Ошибка удаления товара:", error);
     alert("Failed to remove item: " + error.message);
   }
 }

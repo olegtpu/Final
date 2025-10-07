@@ -1,20 +1,19 @@
 # 🚀 Quick Reference Card
 
-## 📋 Your Network Details
+## 📋 Hardhat Network Details
 - **Network Name**: Private Ethereum Network
-- **RPC URL**: http://172.26.232.28:8545
-- **Chain ID**: 2025
-- **Currency**: ETH
+- **RPC URL**: http://127.0.0.1:8545
+- **Chain ID**: 31337
+- **Currency**: HETH
 
 ## 🔑 Your Account
-- **Address**: `0xBa376Ed1e4A62a4b71340F09A855B8FFBe441474`
-- **Private Key**: `9432a91bc810115f7f75aa9b096e12fbd1451639ec30558b0a75048fda54d8f4`
-- **ETH Balance**: ~99.99 ETH
-- **CTK Balance**: 1,000,000 CTK
+- **Address**: `0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266`
+- **Private Key**: `0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80`
+- **HETH Balance**: 10000 HETH
 
 ## 📦 Contract Addresses
-- **CustomToken (CTK)**: `0x4aac4cb74301C9F3239d95D4c95FA5FcEeaff2f2`
-- **VendingMachine**: `0xea213740a24c44D83907D3D7E4E67eA492f1E981`
+- **CustomToken (HETH)**: ``
+- **VendingMachine**: ``
 
 ## 🛠 Quick Commands
 ```bash

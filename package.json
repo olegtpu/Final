@@ -1,10 +1,10 @@
 {
   "name": "vending-machine-dapp",
   "version": "1.0.0",
-  "description": "A decentralized vending machine application using custom ERC20 tokens",
+  "description": "Dapp using custom ERC20 tokens",
+  "type": "module",
   "main": "app.js",
   "scripts": {
-    "troubleshoot": "node troubleshoot.js",
     "check-network": "node check-network.js",
     "compile": "node compile.js",
     "deploy": "node debug-deploy.js",
@@ -15,18 +15,27 @@
     "ethereum",
     "blockchain",
     "dapp",
-    "web3",
     "solidity",
     "vending-machine"
   ],
-  "author": "Your Name",
-  "license": "MIT",
+  "author": "Someone",
+  "license": "UNLICENSED",
   "dependencies": {
-    "@openzeppelin/contracts": "^4.9.0",
-    "solc": "^0.8.17",
+    "@nomicfoundation/hardhat-toolbox": "^6.1.0",
+    "@openzeppelin/contracts": "^4.9.6",
+    "solc": "^0.8.28",
     "web3": "^1.10.0"
   },
   "devDependencies": {
+    "hardhat": "^2.26.3",
     "http-server": "^14.1.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/olegtpu/Final.git"
+  },
+  "bugs": {
+    "url": "https://github.com/olegtpu/Final/issues"
+  },
+  "homepage": "https://github.com/olegtpu/Final#readme"
 }

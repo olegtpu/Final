@@ -1,150 +1,135 @@
-const Web3 = require('web3');
-const fs = require('fs');
-const path = require('path');
+import hre from "hardhat"; // Импорт Hardhat (hre)
+import * as fs from 'fs';
+import * as path from 'path';
+import { fileURLToPath } from 'url'; // Используется для получения __dirname в ESM
+
+const PRIVATE_KEY = 'ac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80'; 
+
+// --- Логика для __dirname в ES Modules ---
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+// ----------------------------------------
 
 async function debugDeploy() {
-  console.log('🔍 Debug Deployment');
-  console.log('==================');
-  
-  // Your private key (without 0x prefix)
-  const privateKey = 'd03a1ba0ae0d859288ffa9b94861e28b6dfb576e30af1584dbaf11d28b9ea217';
+  console.log('Hardhat Debug Deployment (ESM)');
+  console.log('==================================');
   
   try {
-    console.log('📡 Connecting to network...');
-    const web3 = new Web3('http://172.26.232.28:8545');
+   
+    console.log('📡 Connecting to provider...');
+
+    // Создание объекта Signer (Подписант) из приватного ключа
+    const provider = hre.ethers.provider;
+    const wallet = new hre.ethers.Wallet('0x' + PRIVATE_KEY, provider);
+    const deployerAddress = await wallet.getAddress();
     
-    // Add account from private key
-    const account = web3.eth.accounts.privateKeyToAccount('0x' + privateKey);
-    web3.eth.accounts.wallet.add(account);
+    console.log(`✅ Connected with account: ${deployerAddress}`);
     
-    console.log(`✅ Connected with account: ${account.address}`);
+    // Проверка баланса 
+    const balance = await provider.getBalance(deployerAddress);
+    console.log(`💰 Balance: ${hre.ethers.formatEther(balance)} ETH`);
     
-    // Check balance
-    const balance = await web3.eth.getBalance(account.address);
-    console.log(`💰 Balance: ${web3.utils.fromWei(balance, 'ether')} ETH`);
+    // Получение Contract Factories (Hardhat автоматически загружает ABI/Bytecode)
+    console.log('✅ Contract factories loaded');
+    // Необходимо передать Signer (wallet) для развертывания
+    const TokenFactory = await hre.ethers.getContractFactory("CustomToken", wallet);
+    const VendingMachineFactory = await hre.ethers.getContractFactory("VendingMachine", wallet);
     
-    // Load compiled contracts
-    const compiled = JSON.parse(fs.readFileSync(path.join(__dirname, 'compiled-contracts.json'), 'utf8'));
-    console.log('✅ Compiled contracts loaded');
+    // Получение gas data
+    const feeData = await provider.getFeeData();
+    console.log(`⛽ Gas price (Max Fee per Gas): ${hre.ethers.formatUnits(feeData.maxFeePerGas, 'gwei')} gwei`);
     
-    // Get gas price
-    const gasPrice = await web3.eth.getGasPrice();
-    console.log(`⛽ Gas price: ${web3.utils.fromWei(gasPrice, 'gwei')} gwei`);
-    
+    // --- Развертывание CustomToken ---
     console.log('\n📝 Deploying CustomToken...');
     
-    // Deploy CustomToken
-    const tokenContract = new web3.eth.Contract(compiled.CustomToken.abi);
-    const tokenSupply = web3.utils.toWei('1000000', 'ether'); // 1M tokens
+    // Подготовка аргументов (100M tokens)
+    const tokenSupply = hre.ethers.parseEther('100000000');// 100M токенов 
     
-    const tokenDeployTx = tokenContract.deploy({
-      data: '0x' + compiled.CustomToken.bytecode,
-      arguments: [tokenSupply]
-    });
+    // Развертывание
+    const tokenDeployTx = await TokenFactory.deploy(tokenSupply);
     
-    // Estimate gas for token deployment
-    const tokenGasEstimate = await tokenDeployTx.estimateGas({ from: account.address });
-    console.log(`⛽ Token gas estimate: ${tokenGasEstimate}`);
+    // Ожидание завершения транзакции и получение экземпляра контракта
+    await tokenDeployTx.waitForDeployment();
+    const tokenAddress = tokenDeployTx.target;
     
-    const tokenInstance = await tokenDeployTx.send({
-      from: account.address,
-      gas: Math.floor(tokenGasEstimate * 1.2),
-      gasPrice: gasPrice
-    });
+    console.log(`✅ CustomToken deployed: ${tokenAddress}`);
     
-    console.log(`✅ CustomToken deployed: ${tokenInstance.options.address}`);
-    
+    // --- Развертывание VendingMachine ---
     console.log('\n📝 Deploying VendingMachine...');
     
-    // Deploy VendingMachine
-    const vendingContract = new web3.eth.Contract(compiled.VendingMachine.abi);
+    // Развертывание VendingMachine (передаем адрес токена)
+    const vendingDeployTx = await VendingMachineFactory.deploy(tokenAddress);
     
-    const vendingDeployTx = vendingContract.deploy({
-      data: '0x' + compiled.VendingMachine.bytecode,
-      arguments: [tokenInstance.options.address]
-    });
+    await vendingDeployTx.waitForDeployment();
+    const vendingAddress = vendingDeployTx.target;
     
-    const vendingGasEstimate = await vendingDeployTx.estimateGas({ from: account.address });
-    console.log(`⛽ VendingMachine gas estimate: ${vendingGasEstimate}`);
+    console.log(`✅ VendingMachine deployed: ${vendingAddress}`);
     
-    const vendingInstance = await vendingDeployTx.send({
-      from: account.address,
-      gas: Math.floor(vendingGasEstimate * 1.2),
-      gasPrice: gasPrice
-    });
-    
-    console.log(`✅ VendingMachine deployed: ${vendingInstance.options.address}`);
-    
-    // Save deployment info
+    // Сохранение информации о развертывании
     const deploymentInfo = {
-      network: 'Private Ethereum Network',
-      chainId: 2025,
-      rpc: 'http://172.26.232.28:8545',
+      network: 'Hardhat Localhost',
+      chainId: (await provider.getNetwork()).chainId.toString(),
+      rpc: 'http://127.0.0.1:8545',
       customToken: {
-        address: tokenInstance.options.address,
-        symbol: 'CTK',
+        address: tokenAddress,
+        symbol: 'HETH',
         decimals: 18,
-        totalSupply: '1000000'
+        totalSupply: '100000000'
       },
       vendingMachine: {
-        address: vendingInstance.options.address,
-        owner: account.address
+        address: vendingAddress,
+        owner: deployerAddress
       },
-      deployer: account.address,
+      deployer: deployerAddress,
       deployedAt: new Date().toISOString()
     };
     
+    // Используем __dirname, полученный в ESM-совместимом стиле
     fs.writeFileSync(
       path.join(__dirname, 'deployment.json'),
       JSON.stringify(deploymentInfo, null, 2)
     );
     
-    // Update app.js
+    // Обновление app.js
     console.log('\n📝 Updating app.js...');
-    let appJs = fs.readFileSync(path.join(__dirname, 'app.js'), 'utf8');
+    const appJsPath = path.join(__dirname, 'app.js'); 
+    let appJs = fs.readFileSync(appJsPath, 'utf8');
     
     appJs = appJs.replace(
       /const contractAddress = ".*?";/,
-      `const contractAddress = "${vendingInstance.options.address}";`
+      `const contractAddress = "${vendingAddress}";`
     );
     
     appJs = appJs.replace(
       /const tokenAddress = ".*?";/,
-      `const tokenAddress = "${tokenInstance.options.address}";`
+      `const tokenAddress = "${tokenAddress}";`
     );
     
-    fs.writeFileSync(path.join(__dirname, 'app.js'), appJs);
+    fs.writeFileSync(appJsPath, appJs);
     
     console.log('\n🎉 Deployment Complete!');
     console.log('========================');
-    console.log(`CustomToken: ${tokenInstance.options.address}`);
-    console.log(`VendingMachine: ${vendingInstance.options.address}`);
-    console.log(`Owner: ${account.address}`);
+    console.log(`CustomToken: ${tokenAddress}`);
+    console.log(`VendingMachine: ${vendingAddress}`);
+    console.log(`Owner: ${deployerAddress}`);
     
     console.log('\n📋 Next Steps:');
-    console.log('1. Run: npm run dev');
-    console.log('2. Open http://localhost:8080');
-    console.log('3. Add private network to MetaMask (Chain ID: 2025)');
-    console.log('4. Import your account to MetaMask');
+    console.log('1. Run your Hardhat DApp frontend.');
+    console.log('2. Ensure MetaMask is connected to Localhost (Chain ID 31337).');
     
   } catch (error) {
     console.error('\n❌ Deployment failed:', error);
-    
-    // More detailed error info
-    if (error.receipt) {
-      console.log('Receipt:', error.receipt);
-    }
-    if (error.reason) {
-      console.log('Reason:', error.reason);
-    }
-    if (error.data) {
-      console.log('Data:', error.data);
-    }
+    process.exitCode = 1; 
   }
 }
 
-if (require.main === module) {
-  debugDeploy().catch(console.error);
-}
+// 💡 ESM Execution: Для запуска через 'npx hardhat run' мы просто вызываем функцию 
+// и обрабатываем ошибки, не используя require.main === module.
+debugDeploy()
+  .catch((error) => {
+    console.error(error);
+    process.exitCode = 1;
+  });
 
-module.exports = { debugDeploy };
+// Экспорт функции 
+export { debugDeploy };
