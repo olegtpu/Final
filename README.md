@@ -38,3 +38,11 @@ node debug-deploy.js
 
 ## DApp URL run
 **Local**: http://localhost:8080
+
+**Features**
+
+    Custom ERC20 Token for purchases
+    Owner-only item management (add/remove items)
+    Purchase history stored on blockchain
+    Multi-user support via MetaMask
+
